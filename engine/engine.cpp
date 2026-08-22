@@ -20,6 +20,7 @@ int read_csv(const std::string& filename) {
 
     if (fd == -1) { return -1; }
 
+    // structure of the data returned by the fstat function.
     struct stat buffer{};
     fstat(fd, &buffer);
 
@@ -27,9 +28,12 @@ int read_csv(const std::string& filename) {
 
     if (pa != MAP_FAILED) {
         const auto re = static_cast<const char*>(pa);
-
-        for (int i = 0; i < 20; i++) {
-            std::cout << re[i] << std::endl;
+        std::size_t row_counter{0};
+        for (std::size_t i = 0; i < buffer.st_size; i++) {
+            if (re[i] == '\n' || i == buffer.st_size - 1) {
+                const std::string_view sv{re + row_counter, i - row_counter};
+                row_counter = i + 1;
+            }
         }
     } else { return -1; }
 
