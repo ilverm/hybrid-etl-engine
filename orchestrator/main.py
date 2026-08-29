@@ -23,3 +23,8 @@ def test_engine():
         "message": "Calculation performed by the native C++ engine.",
         "result": result
     }
+
+@app.get("/read-csv")
+def read_file():
+    result = engine.read_csv("people.csv", first_n_lines = 5)
+    return {"result": result}
