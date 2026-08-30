@@ -1,6 +1,7 @@
 import sys
-
-from fastapi import FastAPI
+import os
+import shutil
+from fastapi import FastAPI, UploadFile
 from pathlib import Path
 
 current_dir = Path(__file__).parent
@@ -24,7 +25,13 @@ def test_engine():
         "result": result
     }
 
-@app.get("/read_csv")
-def read_file():
-    result = engine.read_csv("people.csv", first_n_lines = 5)
+@app.post("/read_csv")
+def read_file(file: UploadFile):
+    if not os.path.exists("Uploads/"):
+        os.makedirs("Uploads/")
+    file_path = "Uploads/" + file.filename
+    with open(file_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+
+    result = engine.read_csv(file_path, first_n_lines = 5)
     return {"result": result}
