@@ -16,7 +16,7 @@ app = FastAPI(title="ETL engine")
 def read_root():
     return {"status": "Orchestrator is running"}
 
-@app.get("/test-engine")
+@app.get("/test_engine")
 def test_engine():
     result = engine.add(5,7)
     return {
@@ -24,7 +24,7 @@ def test_engine():
         "result": result
     }
 
-@app.get("/read-csv")
+@app.get("/read_csv")
 def read_file():
     result = engine.read_csv("people.csv", first_n_lines = 5)
     return {"result": result}
