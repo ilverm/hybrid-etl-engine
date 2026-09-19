@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 23)
 
 find_package(pybind11 REQUIRED)
 
-pybind11_add_module(engine engine.cpp)
+pybind11_add_module(engine engine.cpp csv_parser.cpp db_connector.cpp)
