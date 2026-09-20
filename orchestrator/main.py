@@ -4,6 +4,8 @@ import shutil
 from fastapi import FastAPI, UploadFile
 from pathlib import Path
 
+import config
+
 current_dir = Path(__file__).parent
 
 engine_path = current_dir.parent / "engine" / "cmake-build-debug"
@@ -35,3 +37,12 @@ def read_file(file: UploadFile):
 
     result = engine.read_csv(file_path, first_n_lines = 5)
     return {"result": result}
+
+@app.get("/connect_db")
+def connect_db():
+    connection_string = config.connection_string
+    result = engine.connect_to_db(connection_string)
+    return {
+        "message": "Connection successful",
+        "result": result
+    }
