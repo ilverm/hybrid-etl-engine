@@ -12,7 +12,8 @@ if st.button("Test connector"):
             st.success("Success!")
 
             st.write("Message from the API: ", data.get("message"))
-            st.metric(label="Result is equal to: ", value=data.get("result"))
+            st.metric(label="Health check is equal to: ", value=data.get("health_check"))
+            st.metric(label="Create table is equal to: ", value=data.get("result"))
 
         else:
             st.error(f"Error from the API: {response.status_code}")
