@@ -14,6 +14,7 @@ if st.button("Test connector"):
             st.write("Message from the API: ", data.get("message"))
             st.metric(label="Health check is equal to: ", value=data.get("health_check"))
             st.metric(label="Create table is equal to: ", value=data.get("result"))
+            st.metric(label="Populate db is equal to: ", value=data.get("populate_db"))
 
         else:
             st.error(f"Error from the API: {response.status_code}")

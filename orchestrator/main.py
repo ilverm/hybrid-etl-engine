@@ -43,8 +43,10 @@ def connect_db():
     connection_string = config.connection_string
     health_check = engine.connect_to_db(connection_string)
     create_table = engine.create_table(connection_string, "people", ["Index","User Id","First Name","Last Name","Sex","Email","Phone","Date of birth","Job Title"])
+    populate_db = engine.populate_db(connection_string, "people", "people.csv")
     return {
         "message": "Connection successful",
         "health_check": health_check,
-        "result": create_table
+        "result": create_table,
+        "populate_db": populate_db
     }
